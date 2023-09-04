@@ -7,7 +7,7 @@ X = Point;
 X = X-ones(size(X,1),1)*mean(X);
 
 % Calculate the eigenvalues and eigenvectors of the new covariance matrix.
-covarianceMatrix = X'*X/size(X,2); %求出其协方差矩阵
+covarianceMatrix = X'*X/size(X,2); 
 [V, D] = eig(covarianceMatrix);%V columns%  r = covarianceMatrix*V ; p = V*D;
 %%
 %%plane projection
@@ -33,6 +33,7 @@ P_zheng = P_zheng(lab,:);
 P_ce = P_ce(lab,:);
 % figure,plot(P_ce(:,1),P_ce(:,2))
 % axis equal
+
 %% Ship shape coefficients
 L = max(P_fu(:,2)) - min(P_fu(:,2));
 D = max(P_zheng(:,2)) - min(P_zheng(:,2));
@@ -41,7 +42,7 @@ B = max(P_ce(:,2)) - min(P_ce(:,2));
 Cwp = abs(trapz(P_fu(k,1),P_fu(k,2)))/(L*B);%abs(trapz(Poiint(k,1),Poiint(k,2)))
 [k,av] = convhull(P_ce);
 Cm = abs(trapz(P_ce(k,1),P_ce(k,2)))/(D*B);%abs(trapz(Poiint(k,1),Poiint(k,2)))
-%%
+
 %% shipwreck index
 sigma1 = 1*1.65;sigma2 = 1*0.47;sigma3 = 1*5;sigma4 = 1*0.035;sigma5 = 1*0.09;
 sigma = sigma1*sigma2*sigma3*sigma4*sigma5;
@@ -53,7 +54,7 @@ SI = exp(-(LB-u1).^2/(2*sigma1^2))...
      * exp(-(Cwp-u4).^2/(2*sigma4^2))  * exp(-(Cm-u5).^2/(2*sigma5^2))
 
 %% show results
-ptCloud = pcread('shipwreck-.pcd');%output_meshnewV
+ptCloud = pcread('shipwreck-.pcd');
 figure,pcshow(ptCloud)
 x=double(ptCloud.Location(:,1));y=double(ptCloud.Location(:,2));z=double(ptCloud.Location(:,3));
 X=x;Y=y;Z=z;%2*(z-48)
